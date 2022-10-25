@@ -5,8 +5,8 @@
             "node",
             "webdriverio/async",
             "@wdio/cucumber-framework",
-            "expect-webdriverio"
+            "expect-webdriverio",
+            "@wdio/devtools-service"
         ],
-        "target": "es2019"
     }
 }

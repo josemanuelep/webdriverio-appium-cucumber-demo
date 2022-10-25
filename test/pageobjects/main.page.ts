@@ -1,5 +1,3 @@
-import * as EC from "wdio-wait-for";
-
 class MainPage {
   note: string;
 
@@ -15,17 +13,36 @@ class MainPage {
     return $("#toolbar_title");
   }
 
-  get createdNote() {
-    return $("#card_layout");
+  get createddNote() {
+    return $("//android.widget.TextView[@text='" + this.note + "']");
+  }
+
+  get deleteButton() {
+    return $("//android.widget.TextView[@text='Trash']");
+  }
+  get confirmDeleteButton(){
+    return $("#btn_ok");
+  }
+
+  async deleteLastCreatedNote() {
+    const lastNote = await this.createddNote;
+    await driver.touchAction({
+      action: "longPress",
+      element: lastNote,
+    });
+    await (await this.deleteButton).click();
+    await (await this.confirmDeleteButton).click();
   }
 
   async acceptAlert() {
     const alert = await $("//android.widget.TextView[@text='NO THANKS']");
-    if (alert.isDisplayed) alert.click();
+    let isDisplayed = await alert.isDisplayed();
+    if (isDisplayed) alert.click();
   }
 
   async createQuickNote(givenNote: string) {
     this.note = givenNote;
+    await this.acceptAlert();
     await (await this.quickNoteInput).addValue(this.note);
     await (await this.quickNoteInput).click();
     await (await this.accepButton).click();
