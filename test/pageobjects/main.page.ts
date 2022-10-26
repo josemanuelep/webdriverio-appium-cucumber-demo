@@ -9,10 +9,6 @@ class MainPage {
     return $("#save");
   }
 
-  get pageTitle() {
-    return $("#toolbar_title");
-  }
-
   get createddNote() {
     return $("//android.widget.TextView[@text='" + this.note + "']");
   }
@@ -20,8 +16,12 @@ class MainPage {
   get deleteButton() {
     return $("//android.widget.TextView[@text='Trash']");
   }
-  get confirmDeleteButton(){
+  get confirmDeleteButton() {
     return $("#btn_ok");
+  }
+
+  static get initialAlert() {
+    return $("//android.widget.TextView[@text='NO THANKS']");
   }
 
   async deleteLastCreatedNote() {
@@ -34,15 +34,14 @@ class MainPage {
     await (await this.confirmDeleteButton).click();
   }
 
-  async acceptAlert() {
-    const alert = await $("//android.widget.TextView[@text='NO THANKS']");
-    let isDisplayed = await alert.isDisplayed();
+  static async acceptAlert() {
+    const alert = await this.initialAlert;
+    let isDisplayed = await alert.isExisting();
     if (isDisplayed) alert.click();
   }
 
   async createQuickNote(givenNote: string) {
     this.note = givenNote;
-    await this.acceptAlert();
     await (await this.quickNoteInput).addValue(this.note);
     await (await this.quickNoteInput).click();
     await (await this.accepButton).click();

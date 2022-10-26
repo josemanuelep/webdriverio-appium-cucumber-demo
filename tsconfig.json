@@ -1,12 +1,12 @@
 {
     "compilerOptions": {
+        "target": "es5",
         "moduleResolution": "node",
         "types": [
             "node",
             "webdriverio/async",
             "@wdio/cucumber-framework",
-            "expect-webdriverio",
-            "@wdio/devtools-service"
+            "expect-webdriverio"
         ],
     }
 }
