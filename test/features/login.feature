@@ -1,12 +1,15 @@
 Feature: The Internet Guinea Pig Website
 
-  Scenario Outline: As a user, I can log into the secure area
-    When I create a quick note <note>
-    Then The note is created
+  # Scenario Outline: As a user, I can create quick notes
+  #   When I create a quick note <note>
+  #   Then The note is created
+  #   Examples:
+  #     | note    |
+  #     | Value 1 |
+  #     | Value 2 |
 
-    Examples:
-      | note    |
-      | Value 1 |
-      | Value 2 |
-      | 1235535 |
-
+  Scenario: As a user, I can create detailed note
+    Given I open note page
+    When I create a note
+      | title        | category |
+      | Hello world! | Work     |

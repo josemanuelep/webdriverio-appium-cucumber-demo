@@ -1,3 +1,5 @@
+import { DateHelper } from "./utils/date.utils";
+
 class MainPage {
   note: string;
 
@@ -9,15 +11,24 @@ class MainPage {
     return $("#save");
   }
 
-  get createddNote() {
+  static get addMainNoteButton() {
+    return $("#createWaveView");
+  }
+
+  get createdNote() {
     return $("//android.widget.TextView[@text='" + this.note + "']");
   }
 
   get deleteButton() {
     return $("//android.widget.TextView[@text='Trash']");
   }
+
   get confirmDeleteButton() {
     return $("#btn_ok");
+  }
+
+  get createdNoteDate() {
+    return $("#note_date");
   }
 
   static get initialAlert() {
@@ -25,7 +36,7 @@ class MainPage {
   }
 
   async deleteLastCreatedNote() {
-    const lastNote = await this.createddNote;
+    const lastNote = await this.createdNote;
     await driver.touchAction({
       action: "longPress",
       element: lastNote,
@@ -45,7 +56,19 @@ class MainPage {
     await (await this.quickNoteInput).addValue(this.note);
     await (await this.quickNoteInput).click();
     await (await this.accepButton).click();
+    await this.validateDate();
   }
+
+  async validateDate() {
+    let today = DateHelper.getTodayDate();
+    await expect(this.createdNoteDate).toBePresent();
+    await expect(this.createdNoteDate).toHaveText(today)
+  }
+
+  static async openCreateNotepage(){
+    await this.addMainNoteButton.click();
+  }
+
 }
 
 export { MainPage };

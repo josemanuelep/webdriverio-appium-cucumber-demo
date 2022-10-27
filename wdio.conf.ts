@@ -80,7 +80,6 @@ export const config: Options.Testrunner = {
   capabilities: [
     {
       platformName: "Android",
-
       "appium:platformVersion": "11.0",
       "appium:deviceName": "Pixel XL API 30",
       "appium:automationName": "UIAutomator2",
@@ -250,7 +249,7 @@ export const config: Options.Testrunner = {
    * @param {Object}         browser      instance of created browser/device session
    */
   before: function (capabilities, specs) {
-    driver.setTimeouts(5000)
+    driver.setTimeouts(5000);
   },
   /**
    * Runs before a WebdriverIO command gets executed.
