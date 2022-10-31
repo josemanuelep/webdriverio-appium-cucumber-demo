@@ -4,13 +4,21 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-      {
-        "type": "node",
-        "request": "launch",
-        "name": "Launch Program",
-        "program": "${workspaceFolder}/wdio.conf.ts",
-        "preLaunchTask": "tsc: build - tsconfig.json --clean",
-        "outFiles": ["${workspaceFolder}/out/**/*.js"]
-      }
+        {
+            "name": "run select spec",
+            "type": "node",
+            "request": "launch",
+            "args": ["wdio.conf.js"],
+            "preLaunchTask": "tsc --build",
+            "cwd": "${workspaceFolder}",
+            "autoAttachChildProcesses": true,
+            "program": "${workspaceRoot}/node_modules/@wdio/cli/bin/wdio.js",
+            "console": "integratedTerminal",
+            "skipFiles": [
+                "${workspaceFolder}/node_modules/**/*.js",
+                "${workspaceFolder}/lib/**/*.js",
+                "<node_internals>/**/*.js"
+            ]
+        },
     ]
 }
